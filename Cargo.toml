@@ -1,15 +1,15 @@
 [package]
 name = "metaphysics"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
-description = "Generic extendable first-order differential equation solver "
+description = "Generic extendable first-order differential equation solver"
 authors = ["Alexey Gerasev <alexey.gerasev@gmail.com>"]
-license = "GPL-3.0-or-later"
+license = "MIT"
 
 [features]
 default = ["std"]
 std = ["glam/std"]
 
 [dependencies]
-glam = { version = "0.27.0", default-features = false }
-derive_more = { version = "2.0.1", features = ["from", "into"] }
+glam = { version = "0.31.0", default-features = false }
+derive_more = { version = "2.1.1", features = ["from", "into"] }
