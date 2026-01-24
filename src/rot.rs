@@ -1,3 +1,4 @@
+use crate::Param;
 use derive_more::derive::{From, Into};
 use glam::{Mat2, Mat3, Quat, Vec2, Vec3};
 use std::f32::consts::PI;
@@ -67,4 +68,34 @@ impl Rot3 {
     pub fn inverse(self) -> Self {
         Self(self.0.inverse())
     }
+}
+
+impl Param for Rot2 {
+    /// Angular speed
+    type Deriv = f32;
+    fn step(self, dp: f32, dt: f32) -> Self {
+        self.chain(Rot2::from_angle(dp * dt))
+    }
+}
+impl Param for Rot3 {
+    /// Direction is an axis of rotation.
+    /// Length is angular speed around this axis.
+    type Deriv = Vec3;
+    fn step(self, dp: Vec3, dt: f32) -> Self {
+        self.chain(Rot3::from_scaled_axis(dp * dt))
+    }
+}
+
+pub fn torque2(pos: Vec2, vec: Vec2) -> f32 {
+    pos.perp_dot(vec)
+}
+pub fn torque3(pos: Vec3, vec: Vec3) -> Vec3 {
+    pos.cross(vec)
+}
+
+pub fn angular_to_linear2(angular: f32, pos: Vec2) -> Vec2 {
+    angular * pos.perp()
+}
+pub fn angular_to_linear3(angular: Vec3, pos: Vec3) -> Vec3 {
+    angular.cross(pos)
 }
