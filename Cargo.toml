@@ -1,10 +1,13 @@
 [package]
-name = "metaphysics"
-version = "0.2.0"
+name = "phy"
+version = "0.1.0"
 edition = "2024"
 description = "Generic extendable first-order differential equation solver"
 authors = ["Alexey Gerasev <alexey.gerasev@gmail.com>"]
 license = "MIT"
+homepage = "https://github.com/phy"
+repository = "https://github.com/phy"
+documentation = "https://docs.rs/phy"
 
 [features]
 default = ["std"]
