@@ -1,15 +1,26 @@
-[package]
-name = "phy"
-version = "0.1.1"
+[workspace]
+members = [".", "geom2"]
+
+[workspace.package]
 edition = "2024"
-description = "Generic extendable first-order differential equation solver"
 authors = ["Alexey Gerasev <alexey.gerasev@gmail.com>"]
 license = "MIT"
 homepage = "https://github.com/agerasev/metaphysics"
 repository = "https://github.com/agerasev/metaphysics"
-documentation = "https://docs.rs/phy"
 
-[dependencies]
+[workspace.dependencies]
 glam = { version = "0.31.0", default-features = false, features = [
     "nostd-libm",
 ] }
+
+[package]
+name = "phy"
+version = "0.1.1"
+edition.workspace = true
+description = "Generic extendable first-order differential equation solver"
+homepage.workspace = true
+repository.workspace = true
+documentation = "https://docs.rs/phy"
+
+[dependencies]
+glam.workspace = true
