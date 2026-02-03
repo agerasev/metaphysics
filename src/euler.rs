@@ -1,8 +1,12 @@
 use crate::{Param, Solver, System, Var, Visitor};
 
-/// Euler's method.
+/// Euler's method for solving differential equations.
+///
+/// This is the simplest numerical integration method, using the derivative at the
+/// current time step to advance the solution.
 pub struct Euler;
 
+/// Internal step implementation for Euler method.
 struct EulerStep {
     dt: f32,
 }

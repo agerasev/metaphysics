@@ -1,20 +1,29 @@
 use crate::{Param, Solver, System, Var, Visitor};
 
-/// The Runge–Kutta method (RK4).
+/// The Runge–Kutta method (RK4) for solving differential equations.
+///
+/// This is a fourth-order numerical integration method that provides better accuracy
+/// and stability compared to Euler's method by using multiple evaluations of the
+/// derivative within each time step.
 pub struct Rk4;
 
+/// Storage type for RK4 solver.
 #[derive(Clone, Copy, Default, Debug)]
 pub struct Rk4Storage<P: Param> {
+    /// The current value of the parameter
     value: P,
+    /// The current derivative of the parameter
     deriv: P::Deriv,
 }
 
+/// Internal step implementation for RK4 method.
 struct Rk4Step {
     stage: u32,
     dt: f32,
 }
 
 impl Rk4Step {
+    /// Calculate the time step for the current stage
     fn dt(&self) -> f32 {
         match self.stage {
             0 => self.dt / 2.0,

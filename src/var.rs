@@ -4,10 +4,16 @@ use core::{
     ops::{Deref, DerefMut},
 };
 
-/// Independent variable.
+/// Independent variable for use in differential equation systems.
+///
+/// This struct represents a variable that can be integrated over time in a system
+/// of differential equations.
 pub struct Var<P: Param, S: Solver> {
+    /// The current value of the variable
     pub value: P,
+    /// The derivative of the variable
     pub deriv: P::Deriv,
+    /// Solver-specific storage for intermediate computations
     pub storage: S::Storage<P>,
 }
 
@@ -28,6 +34,13 @@ impl<P: Param, S: Solver> Default for Var<P, S> {
 }
 
 impl<P: Param, S: Solver> Var<P, S> {
+    /// Create a new variable with the specified initial value.
+    ///
+    /// # Arguments
+    /// + `value` - The initial value of the variable
+    ///
+    /// # Returns
+    /// A new variable with the specified value and empty derivative/storage
     pub fn new(value: P) -> Self {
         Var {
             value,
