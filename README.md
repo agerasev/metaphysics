@@ -24,22 +24,22 @@ The crate provides a framework for solving first-order differential equations us
 Example usage with a simple system:
 
 ```rust
-use phy::{Euler, Rk4, Var, System, Visitor};
+use phy::{Euler, Solver, System, Var, Visitor};
 
 // Define your system parameters
-struct MySystem {
-    position: Var<f32, Euler>,
-    velocity: Var<f32, Euler>,
+struct MySystem<S: Solver> {
+    position: Var<f32, S>,
+    velocity: Var<f32, S>,
 }
 
-impl System<Euler> for MySystem {
-    fn compute_derivs(&mut self, dt: f32) {
+impl<S: Solver> System<S> for MySystem<S> {
+    fn compute_derivs(&mut self, _: &S::Context) {
         // Compute derivatives for the system
-        self.position.deriv = self.velocity.value;
+        self.position.deriv = *self.velocity;
         self.velocity.deriv = -9.81; // Gravity
     }
 
-    fn visit_vars<V: Visitor<Solver = Euler>>(&mut self, visitor: &mut V) {
+    fn visit_vars<V: Visitor<S>>(&mut self, visitor: &mut V) {
         visitor.apply(&mut self.position);
         visitor.apply(&mut self.velocity);
     }

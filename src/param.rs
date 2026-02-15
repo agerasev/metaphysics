@@ -9,8 +9,8 @@ use glam::{Vec2, Vec3};
 /// implement the stepping operation.
 ///
 /// # Required Operations
-/// - `Copy` and `Default` for value semantics and initialization.
-/// - `Add` and `Mul<f32>` for derivative type to support weighted accumulation.
+/// - `Clone` and `Default` for value semantics and initialization.
+/// - Derivative type must implement the [`Deriv`] trait for accumulation operations.
 /// - `step()` method to integrate the derivative over a time step.
 ///
 /// # Provided Implementations
@@ -19,8 +19,8 @@ use glam::{Vec2, Vec3};
 pub trait Param: Clone + Default {
     /// The type of derivative for this parameter.
     ///
-    /// Must support addition and scalar multiplication by `f32` to enable
-    /// numerical integration algorithms.
+    /// Must implement the [`Deriv`] trait to support accumulation and scaling
+    /// operations required by numerical integration algorithms.
     type Deriv: Deriv;
 
     /// Advance the parameter by integrating its derivative over time.
@@ -31,9 +31,6 @@ pub trait Param: Clone + Default {
     /// # Arguments
     /// * `deriv` - The derivative (rate of change) of the parameter.
     /// * `dt` - Time step over which to integrate.
-    ///
-    /// # Returns
-    /// The new parameter value after the time step.
     fn step(&mut self, deriv: &Self::Deriv, dt: f32);
 }
 

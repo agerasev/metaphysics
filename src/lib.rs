@@ -64,6 +64,9 @@ pub use crate::{euler::Euler, param::*, rk4::Rk4, rot::*, var::*};
 /// The visitor pattern allows solvers to update variables in a system
 /// without the system needing to know the solver's internal details.
 /// Each solver defines its own visitor type that implements this trait.
+///
+/// # Type Parameter
+/// * `S` - The solver type that this visitor operates with.
 pub trait Visitor<S: Solver + ?Sized> {
     /// Apply the visitor's operation to a single variable.
     ///
@@ -118,7 +121,7 @@ pub trait Solver {
     /// Solver-specific storage type for variables of type `P`.
     ///
     /// This storage holds intermediate computations needed by the solver
-    /// across integration steps. It must be `Copy` to allow efficient
+    /// across integration steps. It must be `Clone` to allow efficient
     /// variable cloning and `Default` for initialization.
     ///
     /// # Examples
