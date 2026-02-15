@@ -40,3 +40,22 @@ impl System<Euler> for MySystem {
     }
 }
 ```
+
+## Examples
+
+The crate includes several example simulations that demonstrate different physical systems. Each example produces a single-line output showing numerical state and visual trajectory:
+
+- **Bouncing Ball** (`examples/bouncing_ball.rs`): A ball under gravity with spring-damper ground contact.
+- **Coupled Oscillators** (`examples/coupled_oscillators.rs`): Two masses connected by springs to walls and each other, showing complex energy transfer patterns with different masses.
+- **Simple Pendulum** (`examples/pendulum.rs`): Nonlinear pendulum with large-angle dynamics, starting at 60°.
+- **Driven Harmonic Oscillator** (`examples/driven_oscillator.rs`): Damped oscillator with periodic forcing near resonance frequency.
+- **Van der Pol Oscillator** (`examples/van_der_pol.rs`): Self-exciting nonlinear oscillator that converges to a stable limit cycle.
+- **Duffing Oscillator** (`examples/duffing.rs`): Nonlinear oscillator with cubic stiffness showing chaotic behavior under periodic forcing.
+
+Each example shows:
+- Numerical state values (positions, velocities, angles)
+- Visual trajectory using spaces and symbols (`*`, `O`, `#`)
+- Single-line output format for clear animation
+
+The examples demonstrate the crate's ability to simulate diverse 1D systems with non-trivial trajectories.
+```
